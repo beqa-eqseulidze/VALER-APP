@@ -15,14 +15,13 @@ const app = express();
 app.set('view engine', 'ejs');
 
 app.get('/', async (req, res) => {
-    res.send('beqa')
-    // const valuto = await getValutoData();
-    // const crystal = await getCrystalData();
-    // const giro = await getGiroData();
-    // const rico = await getRicoData();
-    // res.render('index', {
-    //     allData: [{ valuto }, { crystal }, { giro }, { rico }]
-    // })
+    const valuto = await getValutoData();
+    const crystal = await getCrystalData();
+    const giro = await getGiroData();
+    const rico = await getRicoData();
+    res.render('index', {
+        allData: [{ valuto }, { crystal }, { giro }, { rico }]
+    })
 });
 
 const PORT = 4000;
