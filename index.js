@@ -8,7 +8,7 @@
 const express = require('express');
 const getCrystalData = require('./crystal');
 const getValutoData = require('./valuto');
-const getGiraoData = require('./girao');
+const getGiraoData = require('./giro');
 const getRicoData = require('./rico');
 const app = express();
 
