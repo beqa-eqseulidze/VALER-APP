@@ -1,11 +1,17 @@
 const axios=require('axios');
 
 async function getValutoData(){
-    const url='https://valuto.ge/wp-json/rest-currency-list/v3/currencies';
-    const response=await axios.get(url);
-    const data=response.data.data.currencies;
-    const result=filterValutoData(data);
-    return result
+    try{
+        const url='https://valuto.ge/wp-json/rest-currency-list/v3/currencies';
+        const response=await axios.get(url);
+        const data=response.data.data.currencies;
+        const result=filterValutoData(data);
+        return result
+    }
+    catch{
+        return []
+    }
+    
 }
 
 function filterValutoData(data){

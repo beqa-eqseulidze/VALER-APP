@@ -28,19 +28,24 @@ function stringToCurrencyObj(inputString) {
 async function getGiroData() {
     let url = 'https://girocredit.ge/web/';
     let result;
-    const response = await got(url);
-    const $ = cheerio.load(response.body);
-    const res = $('form tbody');
-    let tableRows = res.find('tr').map(function (el) {
-        return $(this).html();
-    }).toArray();
-    result = tableRows.map((tr) => {
-        const str = tr.replaceAll(' ', '').replaceAll('</td>', '</td>,')
-        let res = stringToCurrencyObj(str)
-        return res
+    try {
+        const response = await got(url);
+        const $ = cheerio.load(response.body);
+        const res = $('form tbody');
+        let tableRows = res.find('tr').map(function (el) {
+            return $(this).html();
+        }).toArray();
+        result = tableRows.map((tr) => {
+            const str = tr.replaceAll(' ', '').replaceAll('</td>', '</td>,')
+            let res = stringToCurrencyObj(str)
+            return res
 
-    });
-    return result
+        });
+        return result
+    } catch {
+        return []
+    }
+
 };
 
 module.exports = getGiroData;
