@@ -25,7 +25,7 @@ function stringToCurrencyObj(inputString) {
 }
 
 
-async function getGiraoData() {
+async function getGiroData() {
     let url = 'https://girocredit.ge/web/';
     let result;
     const response = await got(url);
@@ -43,6 +43,6 @@ async function getGiraoData() {
     return result
 };
 
-module.exports = getGiraoData;
+module.exports = getGiroData;
 
 
