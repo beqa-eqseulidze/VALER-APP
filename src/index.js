@@ -15,15 +15,10 @@ let allData;
 app.set('view engine', 'ejs');
 
 app.get('/', async (req, res) => {
-    console.log('start get method');
     const valuto = await getValutoData();
-    console.log('valuto data:',valuto);
     const crystal = await getCrystalData();
-    console.log('crystal data:',crystal);
     const giro = await getGiroData();
-    console.log('giro data:',giro);
     const rico = await getRicoData();
-    console.log('rico data:',rico);    
     allData = [{ valuto }, { crystal }, { giro }, { rico }];
     const html=renderPage(allData);
     res.type('html').send(html)    ;

@@ -6,7 +6,7 @@ async function getRicoData() {
         let url = 'https://www.rico.ge/';
         const response = await got(url);
         const $ = cheerio.load(response.body);
-        const res = $('#block-currencyblock');
+        const res = $('.first-table-body');
         let tableRows = res.find('tr').map(function (el) { return $(this).text() }).toArray();
         const result = [];
         tableRows.forEach((tr) => {
@@ -32,8 +32,7 @@ async function getRicoData() {
         });
         return result;
     }catch{
-        return []
-        
+        return []        
     }
     
 };
