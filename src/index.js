@@ -10,6 +10,7 @@ const getCrystalData = require('./crystal');
 const getValutoData = require('./valuto');
 const getGiroData = require('./giro');
 const getRicoData = require('./rico');
+const getKursiData = require('./kursi');
 const app = express();
 let allData;
 app.set('view engine', 'ejs');
@@ -19,7 +20,8 @@ app.get('/', async (req, res) => {
     const crystal = await getCrystalData();
     const giro = await getGiroData();
     const rico = await getRicoData();
-    allData = [{ valuto }, { crystal }, { giro }, { rico }];
+    const kursi = await getKursiData();
+    allData = [{ valuto }, { crystal }, { giro }, { rico }, {kursi}];
     const html=renderPage(allData);
     res.type('html').send(html)    ;
 });
