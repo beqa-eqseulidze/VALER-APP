@@ -6,14 +6,11 @@ async function getRicoData() {
         let url = 'https://www.rico.ge/';
         const response = await got(url);
         const $ = cheerio.load(response.body);
-        const res = $('.first-table-body');
-        let tableRows = res.find('tr').map(function (el) { return $(this).text() }).toArray();
         const result = [];
-        tableRows.forEach((tr) => {
-            let i = 0;
-            let res = tr.split(' ').reduce((a, b) => {
-                if (b !== '' && b !== '\n' && b.trim() !== 'ყიდვა' && b.trim() !== 'გაყიდვა') {
-                    b = b.replace('\n', '');
+        const res = $('.first-table-body');
+        res.find('tr').map(function (el) { 
+                const tds=$(this).find('td').map(function(td){ return $(this).text().trim()}).toArray();
+                result.push(tds.reduce((a,b,i)=>{
                     let obj = {};
                     switch (i) {
                         case 0:
@@ -23,16 +20,14 @@ async function getRicoData() {
                         case 2:
                             obj.AMOUNT_SELL = b;
                     }
-                    i++;
                     return { ...a, ...obj }
-                }
-                return a
-            }, { NBGRate: null, NBGRateDiff: null });
-            if ((res.ISO && res.AMOUNT_BUY && res.AMOUNT_SELL)) result.push(res);
-        });
+                },{ NBGRate: null, NBGRateDiff: null }))
+                return $(this).text() 
+            })        
         return result;
-    }catch{
-        return []        
+    }catch (error){      
+        console.log(error)
+        return []  
     }
     
 };
