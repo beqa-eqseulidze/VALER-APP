@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function getKursiData() {
     try {
-        const url = 'https://api.kursi.ge/api/public/currencies';
+        const url = 'https://api.kursi.ge:8080/api/public/currencies';
         const response = await axios.get(url);
         const data = response.data;
         const result = filterData(data);
@@ -15,7 +15,7 @@ async function getKursiData() {
 
 }
 
-function filterData(data) {   
+function filterData(data) {       
     return data.filter(el=>el.baseCurrencyCode==='GEL').map(k => {
         return {
             ISO:k.secondaryCurrencyCode,
